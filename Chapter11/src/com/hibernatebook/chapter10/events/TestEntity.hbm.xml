@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="com.hibernatebook.chapter10.events.TestEntity" table="TestEntity">
+      <id name="Id" type="int" column="id">
+         <generator class="native"/>
+      </id>
+      <property name="Value" column="cvalue" type="string"/>
+   </class>
+
+	<sql-query name="eventTestQuery">
+	    <return alias="item" class="com.hibernatebook.chapter10.events.TestEntity"/>
+	    SELECT cvalue AS {item.Value}, id AS {item.Id} FROM testentity WHERE cvalue = 'tom'
+	</sql-query>
+</hibernate-mapping>

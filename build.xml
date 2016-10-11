@@ -1,0 +1,60 @@
+<project default="all">
+
+  <property file="build.properties"/>		
+
+  <target name="chapter01">
+     <ant dir="chapter01"/>
+  </target>
+
+  <target name="chapter03">
+     <ant dir="chapter03"/>
+  </target>
+
+  <target name="chapter04">
+     <ant dir="chapter04"/>
+  </target>
+
+  <target name="chapter07">
+     <ant dir="chapter07"/>
+  </target>
+  
+  <target name="chapter08">
+     <ant dir="chapter08"/>
+  </target>
+  
+  <target name="chapter09">
+     <ant dir="chapter09"/>
+  </target>
+  
+  <target name="chapter10">
+     <ant dir="chapter10"/>
+  </target>
+    
+  <target name="chapter11">
+     <ant dir="chapter11"/>
+  </target>
+  
+  <target name="chapter12">
+     <ant dir="chapter12"/>
+  </target>
+  
+  <target name="chapter13">
+     <ant dir="chapter13"/>
+  </target>
+
+  <target name="clean">
+     <ant dir="chapter01" target="clean"/>
+     <ant dir="chapter03" target="clean"/>
+     <ant dir="chapter04" target="clean"/>
+     <ant dir="chapter07" target="clean"/>
+     <ant dir="chapter08" target="clean"/>
+     <ant dir="chapter09" target="clean"/>
+     <ant dir="chapter10" target="clean"/>
+     <ant dir="chapter11" target="clean"/>
+     <ant dir="chapter12" target="clean"/>
+     <ant dir="chapter13" target="clean"/>
+  </target>
+
+  <target name="all" depends="chapter01,chapter03,chapter04,chapter07,chapter08,chapter09,chapter10,chapter11,chapter12,chapter13" />
+
+</project>

@@ -1,0 +1,1 @@
+The expected results of the SimpleFilterExample class are in the results.txt file.

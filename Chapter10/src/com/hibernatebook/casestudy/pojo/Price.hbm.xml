@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+>
+    <class
+        name="com.hibernatebook.casestudy.pojo.Price"
+        table="price"
+    >
+
+        <id
+            name="id"
+            column="id"
+            type="int"
+        >
+            <generator class="native">
+              <!--  
+                  To add non XDoclet generator parameters, create a file named 
+                  hibernate-generator-params-Price.xml 
+                  containing the additional parameters and place it in your merge dir. 
+              --> 
+            </generator>
+        </id>
+
+        <property
+            name="dollars"
+            type="int"
+            update="true"
+            insert="true"
+            column="dollars"
+            not-null="true"
+        />
+
+        <property
+            name="cents"
+            type="int"
+            update="true"
+            insert="true"
+            column="cents"
+            not-null="true"
+        />
+
+        <many-to-one
+            name="product"
+            class="com.hibernatebook.casestudy.pojo.Product"
+            cascade="save-update"
+            outer-join="auto"
+            update="true"
+            insert="true"
+            column="product"
+            not-null="true"
+        />
+
+        <!--
+            To add non XDoclet property mappings, create a file named
+                hibernate-properties-Price.xml
+            containing the additional properties and place it in your merge dir.
+        -->
+
+    </class>
+
+</hibernate-mapping>

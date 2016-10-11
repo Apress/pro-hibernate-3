@@ -1,0 +1,71 @@
+<project default="all">
+
+   <property name="hibernate" location="/home/hibernate-3.0rc1" />
+   <property name="jdbc" location="/home/hsqldb/hsqldb.jar" />
+
+   <property name="src" location="src" />
+   <property name="config" location="." />
+   <property name="dist" location="dist" />
+   <property name="bin" location="${dist}/bin" />
+   <property name="lib" location="${dist}/lib" />	
+   <property name="name" value="chapter03" />
+
+   <path id="classpath.base">
+      <pathelement location="." />
+   	  <pathelement location="${bin}" />   	
+      <pathelement location="${hibernate}/hibernate3.jar" />
+      <fileset dir="${hibernate}/lib" includes="**/*.jar" />
+      <pathelement location="${jdbc}" />
+   </path>
+
+   <target name="init">
+      <mkdir dir="${dist}" />
+      <mkdir dir="${bin}" />
+      <mkdir dir="${lib}" />
+   </target>
+
+   <target name="schema">
+      <taskdef 
+         name="schemaexport"
+         classname="org.hibernate.tool.hbm2ddl.SchemaExportTask"
+         classpathref="classpath.base" />
+
+      <!-- The current release of Hibernate 3 cannot correctly
+           import the configuration from a hibernate-configuration
+           XML file - we therefore HAVE to use a properties
+           file and explicitly import the hibernate-mapping files,
+           as these cannot be specified in the properties file -->
+      <schemaexport
+         properties="hibernate.properties"
+         quiet="no"
+         text="yes"
+         drop="no"
+         output="export.sql">
+            <fileset dir="${src}">
+               <include name="**/*.hbm.xml"/>
+            </fileset>
+      </schemaexport>
+   </target>
+
+   <target name="compile" depends="init">
+      <javac srcdir="${src}" destdir="${bin}">
+         <classpath refid="classpath.base" />
+      </javac>
+   </target>
+
+   <target name="dist" depends="compile">
+      <jar
+         destfile="${lib}/${name}.jar"
+         basedir="."
+         includes="build.xml,src/**,cfg/**,bin/**"
+         excludes=".classpath,.project,.cvsignore" />
+   </target>
+
+   <target name="clean">
+   	  <delete dir="${dist}" />
+      <delete dir="${bin}" />
+      <delete file="${lib}/${name}.jar" />
+   </target>
+
+   <target name="all" depends="dist" />
+</project>

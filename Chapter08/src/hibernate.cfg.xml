@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:file:criteriadb</property>
+        <property name="hibernate.username">user</property>
+        <property name="hibernate.password">user</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+
+        <!-- Mapping files -->
+        <mapping resource="com/hibernatebook/criteria/Product.hbm.xml"/>
+        <mapping resource="com/hibernatebook/criteria/Software.hbm.xml"/>
+        <mapping resource="com/hibernatebook/criteria/Supplier.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

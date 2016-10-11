@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="com.hibernatebook.legacy.Client" table="Client">
+		<id type="int" name="id" column="id">
+			<generator class="native"/>
+		</id>
+<!-- 
+		<property name="name"/>
+		<property name="number"/>
+		<property name="streetname"/>
+		<property name="town"/>
+		<property name="city"/>
+ -->
+		<property type="text" name="name" column="name"/>
+		<property type="text" name="number" column="number"/>
+		<property type="text" name="streetname" column="streetname"/>
+		<property type="text" name="town" column="town"/>
+		<property type="text" name="city" column="city"/>
+
+		<sql-insert callable="true">{call insertClient(?,?,?,?,?,?)}</sql-insert>
+
+<!-- 
+      <loader query-ref="DefaultQuery"/>
+-->
+   </class>
+
+<sql-query name="DefaultQuery">
+   <return alias="c" class="com.hibernatebook.legacy.Client"/>
+   SELECT
+      id as {c.id},
+      'NOT SPECIFIED' as {c.name},
+      number as {c.number},
+      streetname as {c.street},
+      town as {c.town},
+      city as {c.city}
+   FROM
+      Client
+   WHERE
+      id = ?
+</sql-query>
+
+
+</hibernate-mapping>

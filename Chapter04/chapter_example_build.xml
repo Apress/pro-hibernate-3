@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project name="Annotations" default="all" basedir=".">
+
+   <property name="hibernate" location="/java/hibernate-3.0" />
+   <property name="jdbc" location="/home/hsqldb/hsqldb.jar" />
+
+   <property name="src" location="src" />
+   <property name="config" location="." />
+   <property name="dist" location="dist" />
+   <property name="bin" location="${dist}/bin" />
+   <property name="lib" location="lib" />
+   <property name="name" value="annotations" />
+  
+   <path id="classpath.base">
+      <pathelement location="." />
+      <pathelement location="${bin}" />
+      <fileset dir="${lib}" includes="**/*.jar" />   	  
+      <pathelement location="${hibernate}/hibernate3.jar" />
+      <fileset dir="${hibernate}/lib" includes="**/*.jar" />
+      
+      <pathelement location="${jdbc}" />
+   </path>
+  
+   <target name="init">
+      <mkdir dir="${dist}" />
+      <mkdir dir="${bin}" />
+      <mkdir dir="${lib}" />
+   </target>
+
+   <target name="compile" depends="init">
+      <javac srcdir="${src}" destdir="${bin}" debug="true">
+         <classpath refid="classpath.base" />
+      </javac>
+   </target>
+
+   <target name="dist" depends="compile">
+      <jar
+         destfile="${dist}/lib/${name}.jar"
+         basedir="."
+         includes="build.xml,src/**,cfg/**,dist/bin/**"
+         excludes=".classpath,.project,.cvsignore" />
+   </target>
+
+   <target name="dbschema" depends="compile">
+   	<java classname="com.hibernatebook.annotations.GenerateSchema">
+   	   
+   	  <classpath>
+   	    <pathelement path="${bin}" />   
+   	    <pathelement path="${classpath.base}" />   
+   	  </classpath>
+   	</java>   
+   </target>
+  
+   <target name="clean">
+      <delete dir="${dist}" />
+      <delete dir="${bin}" />
+      <delete file="${lib}/${name}.jar" />
+   </target>
+
+   <target name="all" depends="dist" />
+  
+ 
+</project>

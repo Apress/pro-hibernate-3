@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping
+   PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.hibernatebook.criteria">
+   <class name="Product">
+      <id name="id" type="int">
+         <generator class="native"/>
+      </id>
+
+      <property name="name" type="string"/>
+      <property name="description" type="string"/>
+      <property name="price" type="double"/>
+      <many-to-one name="supplier" class="Supplier" column="supplierId"/>
+
+   </class>
+   
+   <query name="com.hibernatebook.criteria.Product.HQLpricing"><![CDATA[
+	   select product.price from Product product where product.price > 25.0]]>
+	</query>   
+   <sql-query name="com.hibernatebook.criteria.Product.SQLpricing">
+   <return-scalar column="price" type="double"/>
+   <![CDATA[
+	   select product.price from Product as product where product.price > 25.0]]>
+	</sql-query>   	
+</hibernate-mapping>

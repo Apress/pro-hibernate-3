@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.hibernatebook.legacy.Product" table="product_color">
+
+		<composite-id class="com.hibernatebook.legacy.ProductKey" name="key">
+			<key-property type="int" name="id" column="product_id"/>
+			<key-property type="int" name="colorId" column="color_id" />
+		</composite-id>
+
+
+		<many-to-one name="color" class="com.hibernatebook.legacy.Color" column="color_id" insert="false" update="false"/>
+		<many-to-one name="data" class="com.hibernatebook.legacy.ProductData" column="product_id" insert="false" update="false"/>
+
+	</class>
+
+</hibernate-mapping>

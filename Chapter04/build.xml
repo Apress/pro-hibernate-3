@@ -1,0 +1,67 @@
+<project default="all">
+
+  <property name="hibernate" location="/home/hibernate3.0.5/hibernate-3.0" />
+  <property name="annotations" location="/home/annotations3.0beta2/hibernate-annotations-3.0beta2" />  
+  <property name="jdbc"      location="/home/hsqldb/lib/hsqldb.jar" />
+
+  <property name="src"     location="src" />
+  <property name="lib"     location="lib" />  
+  <property name="bin"     location="bin" />
+
+  <property name="name"    value="annotations"/>
+
+  <path id="classpath.base">
+    <pathelement location="${bin}" />
+    <pathelement location="${hibernate}/hibernate3.jar" />
+    <fileset dir="${hibernate}/lib" includes="**/*.jar" />    
+    <pathelement location="${annotations}/hibernate-annotations.jar" />
+    <fileset dir="${annotations}/lib" includes="**/*.jar" />
+    <pathelement location="${jdbc}" />
+  </path>
+
+  <path id="classpath.run">
+    <path refid="classpath.base" />
+    <pathelement location="${jdbc}"/>
+    <pathelement location="${lib}/${name}.jar"/>
+  </path>
+
+  <target name="init">
+    <mkdir dir="${bin}" />
+    <mkdir dir="${lib}" />    
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${bin}">
+      <classpath refid="classpath.base" />
+    </javac>
+    <copy todir="${bin}">
+      <fileset dir="${src}">
+        <include name="**/*.properties" />
+        <include name="**/*.xml" />
+      </fileset>
+    </copy>    
+  </target>
+
+  <target name="dist" depends="compile">
+    <jar destfile="${lib}/${name}.jar" basedir="${bin}" />
+  </target>
+
+  <target name="clean">
+    <delete dir="${bin}" />
+    <delete dir="${lib}" />
+    <delete>
+       <fileset dir="." includes="${name}db.*"/>
+    </delete>
+    <delete file="${name}.sql"/>
+  </target>  
+
+  <!-- Note that this uses the Annotations -->
+  <target name="schemaexport" depends="dist">
+     <java classname="com.hibernatebook.annotations.GenerateSchema" classpathref="classpath.run"/>
+  </target>
+
+  <!-- Default task just builds the JAR file -->
+  <target name="all" depends="dist" />
+
+</project>
+

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration
+	PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.firebirdsql.jdbc.FBDriver</property>
+        <property name="connection.url">jdbc:firebirdsql://localhost:3050//home/firebird/firebird_1_5/hibernate</property>
+        <property name="connection.username">hibernate</property>
+        <property name="connection.password">hibernate</property>
+        <property name="connnection.charsetName">ISO8859_1</property>
+        <property name="pool_size">5</property>
+        <property name="show_sql">false</property>
+        <property name="dialect">org.hibernate.dialect.FirebirdDialect</property>
+
+        <mapping resource="com/hibernatebook/legacy/Color.hbm.xml"/>
+        <mapping resource="com/hibernatebook/legacy/ProductData.hbm.xml"/>
+        <mapping resource="com/hibernatebook/legacy/Product.hbm.xml"/>
+        <mapping resource="com/hibernatebook/legacy/Client.hbm.xml"/>
+   </session-factory>
+
+</hibernate-configuration>
